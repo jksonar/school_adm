@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Staff Dashboard</title>
+</head>
+<body>
+    <h1>Student Applications</h1>
+    <a href="{% url 'staff_logout' %}">Logout</a>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Student Name</th>
+                <th>Submitted On</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for application in applications %}
+            <tr>
+                <td>{{ application.full_name }}</td>
+                <td>{{ application.submitted_at }}</td>
+                <td>{{ application.status }}</td>
+                <td>
+                    {% if application.status == 'Pending' %}
+                        <a href="{% url 'approve_application' application.id %}">Approve</a> |
+                        <a href="{% url 'reject_application' application.id %}">Reject</a>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
